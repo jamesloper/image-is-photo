@@ -1,5 +1,5 @@
 from io import BytesIO
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import tensorflow as tf
 import numpy as np
 from PIL import Image
@@ -11,6 +11,7 @@ input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 input_shape = input_details[0]['shape']
 app = Flask(__name__)
+
 
 @app.route("/classify")
 def get_users():
@@ -32,13 +33,7 @@ def get_users():
     interpreter.invoke()
     output_data = interpreter.get_tensor(output_details[0]['index'])
 
-    print(output_data)
-
-    if output_data[0] > 0.5:
-        return "true"
-    else:
-        return "false"
-
+    return jsonify({url: float(output_data[0])})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=8080)
