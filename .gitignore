@@ -1,0 +1,5 @@
+*.pyc
+.idea
+training
+.DS_Store
+.model
