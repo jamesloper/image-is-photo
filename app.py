@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    return "ok"
 
 
 @app.route("/classify")
@@ -39,7 +39,3 @@ def get_users():
     output_data = interpreter.get_tensor(output_details[0]['index'])
 
     return jsonify({url: float(output_data[0])})
-
-
-if __name__ == "__main__":
-    app.run(port=8080)
