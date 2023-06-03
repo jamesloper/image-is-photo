@@ -13,6 +13,11 @@ input_shape = input_details[0]['shape']
 app = Flask(__name__)
 
 
+@app.route("/")
+def hello():
+    return "Hello World!"
+
+
 @app.route("/classify")
 def get_users():
     url = request.args.get('url')
@@ -34,6 +39,7 @@ def get_users():
     output_data = interpreter.get_tensor(output_details[0]['index'])
 
     return jsonify({url: float(output_data[0])})
+
 
 if __name__ == "__main__":
     app.run(port=8080)
